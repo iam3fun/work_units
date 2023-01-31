@@ -11,8 +11,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTreeModule } from '@angular/material/tree';
+
+import { EosTreeComponent } from './eos-tree/eos-tree.component';
 
 @NgModule({
+  declarations: [EosTreeComponent],
   imports: [
     FlexLayoutModule,
     MatInputModule,
@@ -26,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatTableModule,
     MatSelectModule,
+    MatTreeModule,
   ],
   exports: [
     FlexLayoutModule,
@@ -40,6 +45,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatTableModule,
     MatSelectModule,
+    MatTreeModule,
+    EosTreeComponent,
   ],
 })
 export class MaterialModule {}
