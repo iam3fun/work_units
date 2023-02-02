@@ -15,10 +15,12 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { EosTreeComponent } from './eos-tree/eos-tree.component';
+import { CommonModule } from '@angular/common';
 
 const COMPONENTS = [EosTreeComponent];
 
 const IMPORTS = [
+  CommonModule,
   FlexLayoutModule,
   MatInputModule,
   MatCardModule,

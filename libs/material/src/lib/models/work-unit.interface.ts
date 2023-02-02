@@ -3,15 +3,16 @@ import { DebtorInterface } from './debtor.interface';
 import { OtherPeopleInterface } from './other-people.interface';
 
 export interface WorkUnitInterface {
-  workUnitId: string;
-  entityType: string;
-  status: string;
-  key: string;
-  date: Date;
-  type: string;
-  court: string;
-  bailiffName: string;
-  debtors: DebtorInterface[];
-  otherPeople: OtherPeopleInterface[];
-  cases: CaseInterface[];
+  name: string;
+  workUnitId?: string;
+  entityType?: string;
+  status?: string;
+  key?: string;
+  date?: Date;
+  type?: string;
+  court?: string;
+  bailiffName?: string;
+  debtors?: DebtorInterface[];
+  otherPeople?: OtherPeopleInterface[];
+  cases?: CaseInterface[];
 }
