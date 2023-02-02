@@ -12,41 +12,34 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { EosTreeComponent } from './eos-tree/eos-tree.component';
 
+const COMPONENTS = [EosTreeComponent];
+
+const IMPORTS = [
+  FlexLayoutModule,
+  MatInputModule,
+  MatCardModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatListModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatProgressSpinnerModule,
+  MatMenuModule,
+  MatTableModule,
+  MatSelectModule,
+  MatGridListModule,
+  MatTreeModule,
+];
+
+const EXPORTS = [...IMPORTS, COMPONENTS];
+
 @NgModule({
   declarations: [EosTreeComponent],
-  imports: [
-    FlexLayoutModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    MatMenuModule,
-    MatTableModule,
-    MatSelectModule,
-    MatTreeModule,
-  ],
-  exports: [
-    FlexLayoutModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    MatMenuModule,
-    MatTableModule,
-    MatSelectModule,
-    MatTreeModule,
-    EosTreeComponent,
-  ],
+  imports: [IMPORTS],
+  exports: [EXPORTS],
 })
 export class MaterialModule {}

@@ -1,81 +1,48 @@
+import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component } from '@angular/core';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { files } from './example-data';
-
-/** File node data with possible child nodes. */
-export interface FileNode {
-  name: string;
-  type: string;
-  children?: FileNode[];
-}
+import { MatTreeNestedDataSource } from '@angular/material/tree';
 
 /**
- * Flattened tree node that has been created from a FileNode through the flattener. Flattened
- * nodes include level index and whether they can be expanded or not.
+ * Food data with nested structure.
+ * Each node has a name and an optional list of children.
  */
-export interface FlatTreeNode {
+interface FoodNode {
   name: string;
-  type: string;
-  level: number;
-  expandable: boolean;
+  children?: FoodNode[];
 }
 
+const TREE_DATA: FoodNode[] = [
+  {
+    name: 'Fruit',
+    children: [{ name: 'Apple' }, { name: 'Banana' }, { name: 'Fruit loops' }],
+  },
+  {
+    name: 'Vegetables',
+    children: [
+      {
+        name: 'Green',
+        children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
+      },
+      {
+        name: 'Orange',
+        children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
+      },
+    ],
+  },
+];
 @Component({
   selector: 'eos-eos-tree',
   templateUrl: './eos-tree.component.html',
-  styleUrls: ['./eos-tree.component.css']
+  styleUrls: ['./eos-tree.component.css'],
 })
 export class EosTreeComponent {
-
-  /** The TreeControl controls the expand/collapse state of tree nodes.  */
-  treeControl: FlatTreeControl<FlatTreeNode>;
-
-  /** The TreeFlattener is used to generate the flat list of items from hierarchical data. */
-  treeFlattener: MatTreeFlattener<FileNode, FlatTreeNode>;
-
-  /** The MatTreeFlatDataSource connects the control and flattener to provide data. */
-  dataSource: MatTreeFlatDataSource<FileNode, FlatTreeNode>;
+  treeControl = new NestedTreeControl<FoodNode>((node) => node.children);
+  dataSource = new MatTreeNestedDataSource<FoodNode>();
 
   constructor() {
-    this.treeFlattener = new MatTreeFlattener(
-      this.transformer,
-      this.getLevel,
-      this.isExpandable,
-      this.getChildren);
-
-    this.treeControl = new FlatTreeControl(this.getLevel, this.isExpandable);
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    this.dataSource.data = files;
+    this.dataSource.data = TREE_DATA;
   }
 
-  /** Transform the data to something the tree can read. */
-  transformer(node: FileNode, level: number): FlatTreeNode {
-    return {
-      name: node.name,
-      type: node.type,
-      level,
-      expandable: !!node.children
-    };
-  }
-
-  /** Get the level of the node */
-  getLevel(node: FlatTreeNode): number {
-    return node.level;
-  }
-
-  /** Get whether the node is expanded or not. */
-  isExpandable(node: FlatTreeNode): boolean {
-    return node.expandable;
-  }
-
-  /** Get whether the node has children or not. */
-  hasChild(index: number, node: FlatTreeNode): boolean {
-    return node.expandable;
-  }
-
-  /** Get the children for the node. */
-  getChildren(node: FileNode): FileNode[] | null | undefined {
-    return node.children;
-  }
+  hasChild = (_: number, node: FoodNode) =>
+    !!node.children && node.children.length > 0;
 }
